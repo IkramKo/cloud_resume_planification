@@ -16,5 +16,5 @@ However, this README will be updated regularly, as new steps are completed, in o
 - Use Terraform to build and deploy the website within the s3 bucket
 
 ## Redirection
-- Acquire a domain/subdomain name
+- Acquire a domain/subdomain name (explore CloudFront avenue; more research and understanding needed)
 - Use Terraform and Amazon Route 53 to redirect the s3 bucket link to the custom domain
