@@ -9,7 +9,7 @@ However, this README will be updated regularly, as new steps are completed, in o
 ## Infrastructure
 - Set up AWS credentials for Terraform (IAM user & role with appropriate policies)  
 - Configure Terraform to use those credentials  
-- Use Terraform to deploy a single public s3 bucket on AWS with the appropriate policy  
+- Use Terraform to deploy a single private s3 bucket on AWS with the appropriate policy  
 
 ## Deployment 
 - Use Terraform to clone the portfolio from github into s3 bucket
