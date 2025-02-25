@@ -20,10 +20,10 @@ However, this README will be updated regularly, as new steps are completed, in o
 - Use Terraform and Amazon Route 53 to redirect the s3 bucket link to the custom domain  
 
 # Development log
-## Granting Terraform access to AWS Ressources
+## Granting Terraform access to AWS Resources
 - Determined that creating a user specifically for Terraform and using its access keys involves long-term credentials, that I will need to rotate manually or through a script, which I'm not a fan of.  
-- Use of a role is prefferred, to which a restrictive policy is attached (limited access to s3 buckets only - least privilege applied)  
-- Make use of AWS CLI assume role command, as will generate **_temporary_** credentials  
-- Create bash script to run 'assume role' and attribute to Terraform
+- Use of a role is preferred, to which a restrictive policy is attached (limited access to s3 buckets only - least privilege applied)  
+- Make use of AWS CLI `assume-role` command, as it will generate **_temporary_** credentials  
+- Create bash script to run `assume-role` and attribute to Terraform (should be run in CI/CD pipeline)
 - Detach role (in bash script) once Terraform has performed its duties
 - This will ensure no permanent credentials or permissions are given to external services
