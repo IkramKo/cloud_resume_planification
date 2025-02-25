@@ -9,12 +9,21 @@ However, this README will be updated regularly, as new steps are completed, in o
 ## Infrastructure
 - Set up AWS credentials for Terraform (IAM user & role with appropriate policies)  
 - Configure Terraform to use those credentials  
-- Use Terraform to deploy a single private s3 bucket on AWS with the appropriate policy  
+- Use Terraform to deploy a single s3 bucket on AWS with the appropriate policy  
 
 ## Deployment 
 - Use Terraform to clone the portfolio from github into s3 bucket
-- Use Terraform to build and deploy the website within the s3 bucket
+- Use Terraform to build and deploy the website within the s3 bucket  
 
 ## Redirection
-- Acquire a domain/subdomain name (explore CloudFront avenue; more research and understanding needed)
-- Use Terraform and Amazon Route 53 to redirect the s3 bucket link to the custom domain
+- Acquire a domain/subdomain name
+- Use Terraform and Amazon Route 53 to redirect the s3 bucket link to the custom domain  
+
+# Development log
+## Granting Terraform access to AWS Ressources
+- Determined that creating a user specifically for Terraform and using its access keys involves long-term credentials, that I will need to rotate manually or through a script, which I'm not a fan of.  
+- Use of a role is prefferred, to which a restrictive policy is attached (limited access to s3 buckets only - least privilege applied)  
+- Make use of AWS CLI assume role command, as will generate **_temporary_** credentials  
+- Create bash script to run 'assume role' and attribute to Terraform
+- Detach role (in bash script) once Terraform has performed its duties
+- This will ensure no permanent credentials or permissions are given to external services
