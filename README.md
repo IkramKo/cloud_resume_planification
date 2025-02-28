@@ -20,20 +20,20 @@ However, this README will be updated regularly, as new steps are completed, in o
 - Use Terraform and Amazon Route 53 to redirect the s3 bucket link to the custom domain  
 
 # Development log
-## Granting Terraform access to AWS resources
-- Determined that creating a user specifically for Terraform and using its access keys involves long-term credentials, that I will need to rotate manually or through a script, which I'm not a fan of.  
-- Use of a role is preferred, to which a restrictive policy is attached (limited access to s3 buckets only - least privilege applied)
-- Start by configuring SSO provider
-- Create appropriate user, group and permission set (SSO provider will automatically generate a role according to the permission set once attributed to an account)
-- Make use of AWS CLI `sso login` command, as it will generate **_temporary_** credentials  
-- Create bash script to login by sso and retrieve temporary credentials
-- Detach role (in bash script) once Terraform has performed its duties
-- This will ensure no permanent credentials or permissions are given to external services
+## Granting Terraform access to AWS resources (completed)
+- Determined that creating a user specifically for Terraform and using its access keys involves long-term credentials (not ideal). SSO session preferrable.  
+- Configured SSO provider.
+- Created appropriate user, group and permission set (SSO provider will automatically generate a role according to the permission set once attributed to an account).
+- Configured SSO profile for this particular project.
+- Created bash script to login by sso and retrieve **_temporary_** credentials and exported them as environment vars.
+- Used credentials to run terraform script to create private s3 bucket.
+- Logged out from SSO session and unset all environment variables (still within bash script).
+- This ensures that no permanent credentials or permissions are given to external services, or stored locally.
   
 ### Final structure of IAM mgmt
 ![IAM mgmt diagram](assets/IAM_mgmt.png)  
 
-### Bash script retrieving credentials (completed)
+### Final workflow of bash script retrieving credentials (completed)
 1. SSO login with desired role specified (specifically, the one created by IAM Identity center when the perm-set was assigned to an account)
 2. Access token extraction from cached sso profile using sha1sum of profile name
 3. Temporary credentials for role retrieved using `get-role-credentials` 
@@ -42,8 +42,11 @@ However, this README will be updated regularly, as new steps are completed, in o
 6. Temporary credentials cleared
 7. SSO session terminated  
       
-## Creating Terraform script to deploy portfolio bucket
+## Creating Terraform script to deploy portfolio bucket (in progress)
 - Specify region in provider (credentials already exported to env, no need to include them in tf script as tf will retrieve them itself)
 - Specify bucket name
 - Specify private acl to ensure s3 bucket remains private
 - Left to do: clone portfolio repo into bucket
+
+## Making the portfolio available through CloudFront (not started)
+- Under construction.
