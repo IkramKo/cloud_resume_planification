@@ -46,7 +46,7 @@ However, this README will be updated regularly, as new steps are completed, in o
 - Specify region in provider (credentials already exported to env, no need to include them in tf script as tf will retrieve them itself)
 - Specify bucket name
 - Specify private acl to ensure s3 bucket remains private
-- Left to do: clone portfolio repo into bucket
+- Left to do: clone portfolio repo into bucket (Ansible?)
 
 ## Making the portfolio available through CloudFront (not started)
 - Under construction.
